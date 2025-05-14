@@ -1,0 +1,18 @@
+.my-navbar{
+    height: 65px;
+    background-color: aqua;
+}
+.my-icon{
+    width: 90px;
+    height: 65px;
+}
+.icon-btn {
+    font-size: 1.5rem;
+    color: black;
+    margin: 0 0.5rem;
+}
+.form-section {
+    background-color: aqua;
+    border-radius: 1rem;
+    padding: 1.5rem;
+}

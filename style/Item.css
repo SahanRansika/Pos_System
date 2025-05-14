@@ -1,0 +1,29 @@
+body {
+    background-color: #ffffff;
+}
+
+.my-navbar{
+    height: 65px;
+    background-color: aqua;
+}
+.icon-btn {
+    font-size: 1.5rem;
+    color: black;
+    margin: 0 0.5rem;
+}
+.form-section {
+    background-color: aqua;
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+.btn-add {
+    background-color: #00e5ff;
+    color: black;
+    font-weight: bold;
+}
+.color-btn {
+    width: 25px;
+    height: 20px;
+    border-radius: 0.25rem;
+    margin-right: 5px;
+}

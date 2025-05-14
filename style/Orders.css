@@ -1,0 +1,34 @@
+.my-navbar{
+    height: 65px;
+    background-color: aqua;
+}
+.my-icon{
+    width: 90px;
+    height: 65px;
+}
+body {
+    background-color: #ffffff;
+}
+
+.icon-btn {
+    font-size: 1.5rem;
+    color: black;
+    margin: 0 0.5rem;
+}
+.section-box {
+    background-color: white;
+    border: 2px solid aqua;
+    border-radius: 0.75rem;
+    padding: 1.2rem;
+}
+.total-section {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.btn-place-order {
+    background-color: #00e5ff;
+    color: black;
+    font-weight: bold;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+}
