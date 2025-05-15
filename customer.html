@@ -44,29 +44,29 @@
 <div class="container-fluid p-4">
     <h4 class="mb-3">CUSTOMER MANAGE</h4>
 
-    <form>
+    <div id="exampleModal1">
         <div class="mb-3">
-            <label for="exampleInputId" class="form-label">Customer ID</label>
-            <input type="text" class="form-control" id="exampleInputId" aria-describedby="emailHelp">
+            <label for="cId" class="form-label">Customer ID</label>
+            <input type="text" class="form-control" id="cId" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-            <label for="exampleInputName" class="form-label">Customer Name</label>
-            <input type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp">
+            <label for="cName" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" id="cName" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-            <label for="exampleInputAddress" class="form-label">Customer Address</label>
-            <input type="text" class="form-control" id="exampleInputAddress" aria-describedby="emailHelp">
+            <label for="cAddress" class="form-label">Customer Address</label>
+            <input type="text" class="form-control" id="cAddress" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
-            <label for="exampleInputSalary" class="form-label">Customer Salary</label>
-            <input type="text" class="form-control" id="exampleInputSalary" aria-describedby="emailHelp">
+            <label for="cSalary" class="form-label">Customer Salary</label>
+            <input type="text" class="form-control" id="cSalary" aria-describedby="emailHelp">
         </div>
-        <button type="button" class="btn btn-outline-primary">Save Customer</button>
+        <button type="button" class="btn btn-outline-primary" id="customer_add" data-bs-toggle="modal" data-bs-target="#exampleModal">Save Customer</button>
         <button type="button" class="btn btn-outline-danger">Remove</button>
         <button type="button" class="btn btn-outline-warning">Update</button>
         <button type="button" class="btn btn-outline-success">Get All</button>
         <button type="button" class="btn btn-outline-secondary">Clear All</button>
-    </form>
+    </div>
 
     <table class="table">
         <thead>
@@ -77,7 +77,7 @@
             <th scope="col">Salary</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="customer-tbody">
         </tbody>
     </table>
 </div>
