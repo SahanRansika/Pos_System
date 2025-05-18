@@ -23,9 +23,6 @@ $('#customer_add').on('click', function () {
     let cAddress = $('#cAddress').val().trim();
     let cSalary = $('#cSalary').val().trim();
 
-    console.log(`cId: ${cId}, cName: ${cName}, cAddress: ${cAddress}, cSalary: ${cSalary}`);
-
-    // Validate fields
     if (!cId || !cName || !cAddress || !cSalary) {
         Swal.fire({
             title: 'Error!',
@@ -36,41 +33,24 @@ $('#customer_add').on('click', function () {
         return;
     }
 
-    // Check for duplicate ID
-    if (customerDB.some(customer => customer.cId === cId)) {
-        Swal.fire({
-            title: 'Duplicate!',
-            text: 'Customer ID already exists.',
-            icon: 'warning',
-            confirmButtonText: 'OK'
-        });
-        return;
-    }
-
-    // Create and store customer
     let customer_data = new CustomerModel(cId, cName, cAddress, cSalary);
     customerDB.push(customer_data);
 
-    // Store to localStorage
     localStorage.setItem("customerDB", JSON.stringify(customerDB));
 
-    // Refresh UI
     loadCustomer();
 
-    // Success message
     Swal.fire({
-        title: "Success!",
-        text: "Customer added successfully.",
+        title: "Added Successfully!",
         icon: "success"
     });
 
-    // Clear form
-    $('#cId, #cName, #cAddress, #cSalary').val('');
-
-    // Close modal if applicable
-    $('#customer_close').click(); // only works if modal has button with id="customer_close"
+    $('#cId').val('');
+    $('#cName').val('');
+    $('#cAddress').val('');
+    $('#cSalary').val('');
+    $('#customer_close').click();
 });
-
 
 $("#customer-tbody").on('click', 'tr', function () {
     let index = $(this).index();
@@ -90,7 +70,7 @@ $("#customer-tbody").on('click', 'tr', function () {
     selectedCustomerIndex = $(this).index();
 });
 
-$('.btn-warning[data-bs-target="#exampleModal1"]').on('click', function () {
+$('.btn-outline-warning[data-bs-target="#exampleModal1"]').on('click', function () {
     if (selectedCustomerIndex === null) {
         Swal.fire({
             title: 'No customer selected!',
@@ -100,7 +80,7 @@ $('.btn-warning[data-bs-target="#exampleModal1"]').on('click', function () {
         return;
     }
 
-    const customer = customers_db[selectedCustomerIndex];
+    const customer = customerDB[selectedCustomerIndex];
 
     $('#cId1').val(customer.cId);
     $('#cName1').val(customer.cName);
@@ -127,7 +107,7 @@ $('.modal-footer .btn.btn-primary').on('click', function () {
     }
 
     let updatedCustomer = new CustomerModel(cId, cName, cAddress, cSalary);
-    customers_db[selectedCustomerIndex] = updatedCustomer;
+    customerDB[selectedCustomerIndex] = updatedCustomer;
 
     loadCustomer();
 
@@ -179,7 +159,7 @@ $('form[role="search"]').on('submit', function (e) {
 
     $('#customer-tbody').empty();
 
-    customers_db.forEach(item => {
+    customerDB.forEach(item => {
         if (
             item.cId.toLowerCase().includes(query) ||
             item.cName.toLowerCase().includes(query) ||

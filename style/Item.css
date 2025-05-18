@@ -1,7 +1,3 @@
-body {
-    background-color: #ffffff;
-}
-
 .my-navbar{
     height: 65px;
     background-color: aqua;
@@ -16,14 +12,26 @@ body {
     border-radius: 1rem;
     padding: 1.5rem;
 }
-.btn-add {
-    background-color: #00e5ff;
-    color: black;
-    font-weight: bold;
+
+.search-button{
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    top: 100px;
+    left: 25px;
+    margin: auto;
 }
-.color-btn {
-    width: 25px;
-    height: 20px;
-    border-radius: 0.25rem;
-    margin-right: 5px;
+
+.search-card{
+    width: 450px;
+    height: 150px;
+    gap: 10px;
+    top: 175px;
+    right: 30px;
+    background-color: rgba(231,24,165,0.37);
+}
+
+.bracket{
+    width: 500px;
+    height: 350px;
 }

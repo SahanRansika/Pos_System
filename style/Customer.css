@@ -2,10 +2,6 @@
     height: 65px;
     background-color: aqua;
 }
-.my-icon{
-    width: 90px;
-    height: 65px;
-}
 .icon-btn {
     font-size: 1.5rem;
     color: black;
@@ -15,4 +11,27 @@
     background-color: aqua;
     border-radius: 1rem;
     padding: 1.5rem;
+}
+
+.search-button{
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    top: 100px;
+    left: 25px;
+    margin: auto;
+}
+
+.search-card{
+    width: 450px;
+    height: 150px;
+    gap: 10px;
+    top: 175px;
+    right: 30px;
+    background-color: rgba(231,24,165,0.37);
+}
+
+.bracket{
+    width: 500px;
+    height: 350px;
 }
