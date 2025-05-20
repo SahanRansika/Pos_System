@@ -41,7 +41,7 @@ $('#item_add').on('click', function () {
     if (itemDB.some(customer => customer.iCode === iCode)) {
         Swal.fire({
             title: 'Duplicate!',
-            text: 'Customer ID already exists.',
+            text: 'Item ID already exists.',
             icon: 'warning',
             confirmButtonText: 'OK'
         });
@@ -90,10 +90,10 @@ $("#item-tbody").on('click', 'tr', function () {
     selectedItemIndex = $(this).index();
 });
 
-$('.btn-warning[data-bs-target="#exampleModal1"]').on('click', function () {
+$('.btn-outline-warning[data-bs-target="#exampleModal1"]').on('click', function () {
     if (selectedItemIndex === null) {
         Swal.fire({
-            title: 'No customer selected!',
+            title: 'No item selected!',
             text: 'Please click on a item row before updating.',
             icon: 'warning'
         });
@@ -102,10 +102,10 @@ $('.btn-warning[data-bs-target="#exampleModal1"]').on('click', function () {
 
     const item = itemDB[selectedItemIndex];
 
-    $('#iCode').val(item.iCode);
-    $('#iName').val(item.iName);
-    $('#iQty').val(item.iQty);
-    $('#iPrice').val(item.iPrice);
+    $('#iCode1').val(item.iCode);
+    $('#iName1').val(item.iName);
+    $('#iQty1').val(item.iQty);
+    $('#iPrice1').val(item.iPrice);
 });
 
 
@@ -145,7 +145,7 @@ $('.delete-btn').on('click', function () {
     if (selectedItemIndex === null) {
         Swal.fire({
             title: 'No item selected!',
-            text: 'Please select a customer to delete.',
+            text: 'Please select a item to delete.',
             icon: 'warning'
         });
         return;

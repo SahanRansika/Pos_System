@@ -16,7 +16,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg fw-bold text-white my-navbar">
 <div class="container-fluid">
-    <h1>POS.</h1>
+    <h1>POS |</h1>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 container">
             <li class="nav-item">
@@ -48,7 +48,7 @@
     <h4 class="mb-3">ITEM MANAGE</h4>
 
         <!-- Left Form Section -->
-    <div id="exampleModal1">
+    <div id="exampleModal">
        <div class="bracket modal-body">
            <div class="mb-3">
                <label for="iCode" class="form-label">Item Code</label>
@@ -78,9 +78,44 @@
         </div>
 
         <button type="button" class="btn btn-outline-primary" id="item_add">Add Item</button>
-        <button type="button" class="btn btn-outline-danger">Remove</button>
-        <button type="button" class="btn btn-outline-warning" id="exampleModalLabel1">Update</button>
+        <button type="button" class="btn btn-outline-danger delete-btn">Remove</button>
+        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1" >Update</button>
         <button type="button" class="btn btn-outline-secondary" id="clear">Clear</button>
+    </div>
+
+    <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel1">New Updated!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="iCode1" class="form-label  ">Item code :</label>
+                            <input type="text" class="form-control" id="iCode1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="iName1" class="form-label ">Item name :</label>
+                            <input type="text" class="form-control" id="iName1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="iQty1" class="form-label ">Item qty :</label>
+                            <input type="text" class="form-control" id="iQty1">
+                        </div>
+                        <div class="mb-3">
+                            <label for="iPrice1" class="form-label ">Item price :</label>
+                            <input type="text" class="form-control" id="iPrice1">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Update Item</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <table class="table">

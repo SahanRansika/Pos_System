@@ -10,7 +10,7 @@ function loadCustomer(){
                  <td>${item.cId}</td>
                  <td>${item.cName}</td>
                  <td>${item.cAddress}</td>
-                 <td>${item.cSalary}</td>
+                 <td>${item.cNumber}</td>
             </tr>
         `;
         $('#customer-tbody').append(row);
@@ -21,9 +21,9 @@ $('#customer_add').on('click', function () {
     let cId = $('#cId').val().trim();
     let cName = $('#cName').val().trim();
     let cAddress = $('#cAddress').val().trim();
-    let cSalary = $('#cSalary').val().trim();
+    let cNumber = $('#cNumber').val().trim();
 
-    if (!cId || !cName || !cAddress || !cSalary) {
+    if (!cId || !cName || !cAddress || !cNumber) {
         Swal.fire({
             title: 'Error!',
             text: 'Please fill in all fields.',
@@ -33,7 +33,7 @@ $('#customer_add').on('click', function () {
         return;
     }
 
-    let customer_data = new CustomerModel(cId, cName, cAddress, cSalary);
+    let customer_data = new CustomerModel(cId, cName, cAddress, cNumber);
     customerDB.push(customer_data);
 
     localStorage.setItem("customerDB", JSON.stringify(customerDB));
@@ -48,7 +48,7 @@ $('#customer_add').on('click', function () {
     $('#cId').val('');
     $('#cName').val('');
     $('#cAddress').val('');
-    $('#cSalary').val('');
+    $('#cNumber').val('');
     $('#customer_close').click();
 });
 
@@ -59,7 +59,7 @@ $("#customer-tbody").on('click', 'tr', function () {
     $('#cId').val(customer.cId);
     $('#cName').val(customer.cName);
     $('#cAddress').val(customer.cAddress);
-    $('#cSalary').val(customer.cSalary);
+    $('#cNumber').val(customer.cNumber);
 });
 
 let selectedCustomerIndex = null;
@@ -85,7 +85,7 @@ $('.btn-outline-warning[data-bs-target="#exampleModal1"]').on('click', function 
     $('#cId1').val(customer.cId);
     $('#cName1').val(customer.cName);
     $('#cAddress1').val(customer.cAddress);
-    $('#cSalary1').val(customer.cSalary);
+    $('#cNumber1').val(customer.cNumber);
 });
 
 $('.modal-footer .btn.btn-primary').on('click', function () {
@@ -94,9 +94,9 @@ $('.modal-footer .btn.btn-primary').on('click', function () {
     let cId = $('#cId1').val().trim();
     let cName = $('#cName1').val().trim();
     let cAddress = $('#cAddress1').val().trim();
-    let cSalary = $('#cSalary1').val().trim();
+    let cNumber = $('#cNumber1').val().trim();
 
-    if (!cId || !cName || !cAddress || !cSalary) {
+    if (!cId || !cName || !cAddress || !cNumber) {
         Swal.fire({
             title: 'Error!',
             text: 'Please fill in all fields.',
@@ -106,7 +106,7 @@ $('.modal-footer .btn.btn-primary').on('click', function () {
         return;
     }
 
-    let updatedCustomer = new CustomerModel(cId, cName, cAddress, cSalary);
+    let updatedCustomer = new CustomerModel(cId, cName, cAddress, cNumber);
     customerDB[selectedCustomerIndex] = updatedCustomer;
 
     loadCustomer();
@@ -164,14 +164,14 @@ $('form[role="search"]').on('submit', function (e) {
             item.cId.toLowerCase().includes(query) ||
             item.cName.toLowerCase().includes(query) ||
             item.cAddress.toLowerCase().includes(query) ||
-            item.cSalary.toLowerCase().includes(query)
+            item.cNumber.toLowerCase().includes(query)
         ) {
             const row = `
                 <tr>
                     <td>${item.cId}</td>
                     <td>${item.cName}</td>
                     <td>${item.cAddress}</td>
-                    <td>${item.cSalary}</td>
+                    <td>${item.cNumber}</td>
                 </tr>
             `;
             $('#customer-tbody').append(row);
@@ -183,7 +183,7 @@ $('#clear').on('click', function () {
     $('#cId').val('');
     $('#cName').val('');
     $('#cAddress').val('');
-    $('#cSalary').val('');
+    $('#cNumber').val('');
 });
 
 $('#clear').on('click', function () {
