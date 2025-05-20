@@ -84,97 +84,159 @@ $('#btnSearchItem').on('click', function(event) {
     }
 });
 
-$('#orderqty').on('input', function () {
-    const qty = parseFloat($('#orderqty').val());
-    const price = parseFloat($('#itemsellprice').val());
+$('#btnAddToCart').on('click', function (event){
+    event.preventDefault();
 
-    if (!isNaN(qty) && !isNaN(price)) {
-        const subtotal = qty * price;
-        $('#subtotal').val(subtotal.toFixed(2));
-        $('#total').val(subtotal.toFixed(2));
-    } else {
-        $('#subtotal').val('');
-    }
-});
-
-$('#add_to_card').on('click', function () {
-    const itemId = $('#itemId').val().trim();
-    const itemName = $('#itemname').val().trim();
-    const itemPrice = parseFloat($('#itemsellprice').val()).toFixed(2);
-    const qty = $('#qty').val().trim();
-    const orderQty = $('#orderqty').val().trim();
-    const subtotal = parseFloat($('#subtotal').val()).toFixed(2);
-
-    if (!itemId || !itemName || isNaN(itemPrice) || isNaN(orderQty) || isNaN(subtotal)) {
+    if ($('#itemName').val() === "") {
         Swal.fire({
-            title: "Please fill all required fields correctly",
+            title: "Please select a item",
             icon: "error",
-            timer: 1500,
-            showConfirmButton: false,
+            timer: 1000
+        });
+        return;
+    }
+    if ($('#orderQty').val() === "") {
+        Swal.fire({
+            title: "Please fill the order quantity",
+            icon: "error",
+            timer: 1000
         });
         return;
     }
 
-    const newRow = `
-        <tr>
-            <td>${itemId}</td>
-            <td>${itemName}</td>
-            <td>${itemPrice}</td>
-            <td>${qty}</td>
-            <td>${orderQty}</td>
-            <td>${subtotal}</td>
-        </tr>
-    `;
-    $('#order-tbody').append(newRow);
+    let itemId = $('#itemId').val();
+    let itemName = $('#itemName').val();
+    let qty = $('#qty').val();
+    let price = $('#price').val();
+    let orderQty = $('#orderQty').val();
+    let totalPrice = Number(price) * Number(orderQty);
 
-    $('#itemId').val('');
-    $('#itemname').val('');
-    $('#itemsellprice').val('');
-    $('#qty').val('');
-    $('#orderqty').val('');
-    $('#subtotal').val('');
-});
+    let isValidItem = true;
+    item_db.forEach(function (item){
+        if (item.iId === itemId){
+            if (orderQty > item.qty ){
+                Swal.fire({
+                    title: "Not enough stock",
+                    icon: "error",
+                    timer: 1000
+                });
+                isValidItem = false;
+            }else {
+                item.qty = Number(item.qty) - Number(orderQty);
+            }
+        }
+    });
 
-$('#btn-clear').on('click', function () {
-    $('#customerId').val('');
-    $('#custname').val('');
-    $('#custaddress').val('');
-    $('#custnumber').val('');
-});
-
-$('#btn-clear').on('click', function () {
-    $('#exampleModal input').val('');
-});
-
-$('#clear1').on('click', function () {
-    $('#itemId').val('');
-    $('#itemname').val('');
-    $('#itemsellprice').val('');
-    $('#qty').val('');
-    $('#orderqty').val('');
-});
-
-$('#clear1').on('click', function () {
-    $('#exampleModal input').val('');
-});
-
-$('#discount').on('click', function () {
-    const total = parseFloat($('#total').val());
-    const discountPercent = parseFloat($('#bouns').val());
-
-    if (isNaN(total) || isNaN(discountPercent)) {
-        Swal.fire({
-            title: "Please enter valid Total and Discount",
-            icon: "error",
-            timer: 1500,
-            showConfirmButton: false,
-        });
+    if (!isValidItem){
         return;
     }
 
-    const discountAmount = (total * discountPercent) / 100;
+    let item = {itemId, itemName, price, orderQty, totalPrice};
+    let isNewItem = true;
+    cart.forEach(function (cart){
+        if (cart.itemId === itemId){
+            cart.orderQty = Number(orderQty) + Number(cart.orderQty);
+            isNewItem = false;
+        }
+    });
+    if (isNewItem){
+        cart.push(item);
+    }
 
-    const discountedTotal = total - discountAmount;
+    $('#table-body').empty();
+    total = 0;
+    cart.forEach(function (cart){
+        let itemData = `<tr class="row">
+                            <td class="col">${cart.itemId}</td>
+                            <td class="col">${cart.itemName}</td>
+                            <td class="col">${cart.orderQty}</td>
+                            <td class="col">${cart.price}</td>
+                            <td class="col">${cart.totalPrice}</td>
+                            <td class="col"><button type="button" class="btn btn-danger">Delete</button></td>
+                        </tr>`
 
-    $('#subAmount').val(discountedTotal.toFixed(2));
+        $('#table-body').append(itemData);
+
+        total = Number(total) + ((Number(cart.price) * Number(cart.orderQty)));
+    });
+    $('#lblTotal').text(`TOTAL : ${total} /=`);
+    console.log(total)
+});
+
+$('#btn-place-order').on('click', function (event){
+    event.preventDefault();
+
+    if ($('#firstName').val() === "") {
+        Swal.fire({
+            title: "Please select a customer",
+            icon: "error",
+            timer: 1000
+        });
+        return;
+    }
+    if (cart.length === 0){
+        Swal.fire({
+            title: "Please add items to cart",
+            icon: "error",
+            timer: 1000
+        });
+        return;
+    }
+    if ($('#cash').val() === 0 || $('#cash').val() === "") {
+        Swal.fire({
+            title: "Please enter cash",
+            icon: "error",
+            timer: 1000
+        });
+        return;
+    }
+    let customerId = $('#customerId').val();
+    let customerName = $('#firstName').val() + " " + $('#lastName').val();
+    let phoneNumber = $('#phoneNumber').val();
+    let orderDate = new Date().toLocaleDateString();
+    let orderId = $('#orderId').val();
+    let cash = $('#cash').val();
+    let balance = $('#balance').val();
+    let discount = $('#discount').val();
+    let items = [];
+    cart.forEach(function (cart){
+        let item = {
+            itemId: cart.itemId,
+            itemName: cart.itemName,
+            qty: cart.orderQty,
+            price: cart.price,
+            totalPrice : Number(cart.price) * Number(cart.orderQty)
+        }
+        items.push(item);
+    });
+    // if (Number(cash) <= total) {
+    //     Swal.fire({
+    //         title: "Enter Valid Cash Amount",
+    //         icon: "error",
+    //         timer: 1000
+    //     });
+    //     return;
+    // }
+    let order = new OrderModel(orderId, orderDate, customerId, customerName, phoneNumber, total,cash, balance, discount, items);
+    order_db.push(order);
+    Swal.fire({
+        title: "Done",
+        icon: "success",
+        timer: 1000
+    });
+    console.log(order_db);
+});
+
+$("#cash").on('keyup', function (event){
+    let discount = $("#discount").val();
+    let cash  = $("#cash").val();
+    let balance = 0;
+    let discountPrice = discount * total / 100;
+
+
+    console.log(total);
+    if (total <= Number(cash)) {
+        $("#balance").val(Number(cash) - (total - discountPrice));
+    }
+
 });
