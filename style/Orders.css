@@ -4,6 +4,7 @@ body{
 #lblTotal{
     font-size: 2rem;
     font-weight: bold;
+    color: blue;
 }
 .container-section{
     display: flex;

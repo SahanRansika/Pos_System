@@ -40,53 +40,29 @@
     </div>
 </nav>
 
+<section class="d-flex flex-column align-items-center row">
+    <form class="search-bar d-flex m-2 col-4" role="search" style="width: 25rem">
+        <input class="form-control me-2" type="search" placeholder="Search Customer ID" aria-label="Search" id="txtCustomerId"/>
+        <button class="btn btn-outline-success me-2" type="submit" id="customerSearchBtn">Search</button>
+        <button class="btn btn-outline-primary me-2" type="submit" id="clearBtn">Clear</button>
+    </form>
 
-<!-- Order History Section -->
-<div class="container mt-5">
-    <h4 class="mb-4">ORDER HISTORY</h4>
-
-    <!-- Search Bar -->
-    <div class="d-flex mb-4 align-items-center">
-        <div class="search-box flex-grow-1 me-2 d-flex align-items-center">
-            <input type="text" class="form-control border-0 bg-transparent" placeholder="Search...">
-        </div>
-        <button class="btn btn-outline-secondary rounded-circle"><i class="bi bi-search"></i></button>
-    </div>
-
-    <!-- Table Placeholder -->
-    <div class="table-responsive">
-        <table class="table table-bordered table-custom text-center">
-            <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Date</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <!-- Example Rows -->
-            <tr>
-                <td>001</td>
-                <td>2025-05-01</td>
-                <td>Product A</td>
-                <td>2</td>
-                <td>Shipped</td>
-            </tr>
-            <tr>
-                <td>002</td>
-                <td>2025-05-02</td>
-                <td>Product B</td>
-                <td>1</td>
-                <td>Pending</td>
-            </tr>
-            <!-- More rows as needed -->
-            </tbody>
-        </table>
-    </div>
-</div>
-
+    <!--cart table-->
+    <table class="table item-table">
+        <thead>
+        <tr class="row">
+            <th class="col" scope="col">Item Id</th>
+            <th class="col" scope="col">Item Name</th>
+            <th class="col" scope="col">Purchases Qty</th>
+            <th class="col" scope="col">Price</th>
+            <th class="col" scope="col">Total</th>
+            <th class="col" scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+    </table>
+</section>
 <!-- Bootstrap Icons -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

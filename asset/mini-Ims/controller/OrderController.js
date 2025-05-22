@@ -6,6 +6,11 @@ let savedCustomers = JSON.parse(localStorage.getItem("customerDB")) || [];
 savedCustomers.forEach(customer => customerDB.push(customer));
 let savedItems = JSON.parse(localStorage.getItem("itemDB")) || [];
 
+var cart = [];
+var total = 0;
+$("#discount").val(0);
+
+
 savedItems.forEach(item => {
     let reconstructedItem = new ItemModel(
         item.iCode,
@@ -27,8 +32,6 @@ savedOrders.forEach(order => {
         order.qty,
         order.total,
         order.discount,
-        order.subAmount,
-        order.paid,
         order.balance
     );
     orderDetailsDB.push(reconstructedOrder);
@@ -105,14 +108,13 @@ $('#btnAddToCart').on('click', function (event){
     }
 
     let itemId = $('#itemId').val();
-    let itemName = $('#itemName').val();
-    let qty = $('#qty').val();
-    let price = $('#price').val();
+    let itemName = $('#itemname').val();
+    let price = $('#itemsellprice').val();
     let orderQty = $('#orderQty').val();
     let totalPrice = Number(price) * Number(orderQty);
 
     let isValidItem = true;
-    item_db.forEach(function (item){
+    itemDB.forEach(function (item){
         if (item.iId === itemId){
             if (orderQty > item.qty ){
                 Swal.fire({
@@ -152,7 +154,7 @@ $('#btnAddToCart').on('click', function (event){
                             <td class="col">${cart.orderQty}</td>
                             <td class="col">${cart.price}</td>
                             <td class="col">${cart.totalPrice}</td>
-                            <td class="col"><button type="button" class="btn btn-danger">Delete</button></td>
+                            <td class="col"><button type="button" class="btn btn-danger" id="clear">Delete</button></td>
                         </tr>`
 
         $('#table-body').append(itemData);
@@ -162,11 +164,19 @@ $('#btnAddToCart').on('click', function (event){
     $('#lblTotal').text(`TOTAL : ${total} /=`);
     console.log(total)
 });
+$('#clear').on('click', function () {
+    $('#itemId').val('');
+    $('#itemName').val('');
+    $('#orderQty').val('');
+    $('#price').val('');
+    $('#totalPrice').val('');
+});
+
 
 $('#btn-place-order').on('click', function (event){
     event.preventDefault();
 
-    if ($('#firstName').val() === "") {
+    if ($('#custname').val() === "") {
         Swal.fire({
             title: "Please select a customer",
             icon: "error",
@@ -191,8 +201,8 @@ $('#btn-place-order').on('click', function (event){
         return;
     }
     let customerId = $('#customerId').val();
-    let customerName = $('#firstName').val() + " " + $('#lastName').val();
-    let phoneNumber = $('#phoneNumber').val();
+    let customerName = $('#custname');
+    let phoneNumber = $('#custnumber').val();
     let orderDate = new Date().toLocaleDateString();
     let orderId = $('#orderId').val();
     let cash = $('#cash').val();
@@ -209,28 +219,20 @@ $('#btn-place-order').on('click', function (event){
         }
         items.push(item);
     });
-    // if (Number(cash) <= total) {
-    //     Swal.fire({
-    //         title: "Enter Valid Cash Amount",
-    //         icon: "error",
-    //         timer: 1000
-    //     });
-    //     return;
-    // }
-    let order = new OrderModel(orderId, orderDate, customerId, customerName, phoneNumber, total,cash, balance, discount, items);
-    order_db.push(order);
+
+    let order = new OrderDetailsModel(orderId, orderDate, customerId, customerName, phoneNumber, total,cash, balance, discount, items);
+    orderDetailsDB.push(order);
     Swal.fire({
         title: "Done",
         icon: "success",
         timer: 1000
     });
-    console.log(order_db);
+    console.log(orderDetailsDB);
 });
 
 $("#cash").on('keyup', function (event){
     let discount = $("#discount").val();
     let cash  = $("#cash").val();
-    let balance = 0;
     let discountPrice = discount * total / 100;
 
 
@@ -238,5 +240,6 @@ $("#cash").on('keyup', function (event){
     if (total <= Number(cash)) {
         $("#balance").val(Number(cash) - (total - discountPrice));
     }
+
 
 });
