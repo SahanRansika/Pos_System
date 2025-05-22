@@ -1,15 +1,12 @@
 export default class OrderDetailsModel {
-    constructor(oId, cId, cNumber, iName, iPrice, qty, total, discount, subAmount, paid, balance) {
+    constructor(oId,orderDate, cId, customerName,total,cash, balance, discount) {
         this.oId = oId;
+        this.orderDate = orderDate;
         this.cId = cId;
-        this.cNumber = cNumber;
-        this.iName = iName;
-        this.iPrice = iPrice;
-        this.qty = qty;
+        this.customerName = customerName;
         this.total = total;
-        this.discount = discount;
-        this.subAmount = subAmount;
-        this.paid = paid;
+        this.cash = cash;
         this.balance = balance;
+        this.discount = discount;
     }
 }

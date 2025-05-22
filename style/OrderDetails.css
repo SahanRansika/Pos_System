@@ -6,16 +6,7 @@
     width: 90px;
     height: 65px;
 }
-.search-box {
-    background-color: #ccf9ff;
-    border-radius: 30px;
-    padding: 5px 15px;
-}
-.table-custom {
-    background-color: #aef9ff;
-}
-.icon-btn {
-    font-size: 1.5rem;
-    color: black;
-    margin: 0 0.5rem;
+
+.item-table{
+    width: 95%;
 }
